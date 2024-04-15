@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js Communication</title>
+  <!-- Link to Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing: border-box;
+    }
+    .div{
+      position:absolute;
+      margin-top:-80px;
+    }
+
+  </style>
+</head>
+<body class="bg-black p-8 h-screen w-screen relative flex justify-center items-center">
+  <div class="div border-solid border-white border-2 rounded-lg p-14 pb-20">
+    <label for="name" class="block mb-2 text-white font-bold">Name:-</label>
+  <input type="text" id="name" class="block  px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-400">
+
+  <label for="pageno" class="block mb-2 text-white font-bold">Pageno:-</label>
+  <input type="text" id="pageno" class="block  px-4 py-2 mb-4 border rounded-md focus:outline-none focus:border-blue-400">
+
+  <button id="clickMe" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute ml-14 mt-3">Click Me</button>
+  </div>
+
+  <script>
+    document.getElementById('clickMe').addEventListener('click', () => {
+      const message = {
+        name: document.getElementById('name').value,
+        page: document.getElementById('pageno').value // include the value of the input field
+      }; // Object to be sent to the server
+      // Send POST request to server when button is clicked
+      fetch('http://localhost:3000/print', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain' // Specify JSON content type
+        },
+        body: JSON.stringify(message) // Convert object to JSON string
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Request sent to server');
+        } else {
+          console.error('Error:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

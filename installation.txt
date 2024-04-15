@@ -1,0 +1,2 @@
+python3.12 -m pip install pandas
+python3.11 -m pip install pandas
